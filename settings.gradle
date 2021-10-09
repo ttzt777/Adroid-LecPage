@@ -1,3 +1,4 @@
 rootProject.name = "Android-LecPage"
 include ':app'
 include ':lec-kernel'
+include ':lec-ext'
