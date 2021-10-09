@@ -1,14 +1,13 @@
-# Adroid-LecPage
 [![](https://jitpack.io/v/ttzt777/Adroid-LecPage.svg)](https://jitpack.io/#ttzt777/Adroid-LecPage)
 ## 引用方式
 - 在项目根目录的build.gradle文件中添加
 ```groovy
-  allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
+    allprojects {
+        repositories {
+            ...
+            maven { url 'https://jitpack.io' }
+        }
     }
-  }
 ```
 - 对应module添加依赖
 ```groovy
