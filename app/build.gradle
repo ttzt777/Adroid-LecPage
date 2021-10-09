@@ -35,6 +35,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(path: ':lec-kernel')
+    implementation project(path: ':lec-ext')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
