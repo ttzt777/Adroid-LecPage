@@ -1,6 +1,7 @@
 package cc.bear3.lec
 
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
@@ -11,8 +12,6 @@ import androidx.lifecycle.MutableLiveData
  * @since 2021-6-2
  */
 interface ILecPage {
-    val params: FrameLayout.LayoutParams
-
     val state: MutableLiveData<LecState>
 
     var root: FrameLayout
@@ -46,7 +45,9 @@ interface ILecPage {
         if (loadingView == null) {
             loadingView = onCreateLoadingView()
 
-            params.topMargin = topMargin
+            val params = getAttachParams().apply {
+                this.topMargin = topMargin
+            }
             root.addView(loadingView, params)
         } else {
             loadingView?.let {
@@ -75,7 +76,9 @@ interface ILecPage {
         if (errorView == null) {
             errorView = onCreateErrorView()
 
-            params.topMargin = topMargin
+            val params = getAttachParams().apply {
+                this.topMargin = topMargin
+            }
             root.addView(errorView, params)
         } else {
             errorView?.let {
@@ -117,5 +120,12 @@ interface ILecPage {
 
     fun getTopMargin(lecState: LecState): Int {
         return 0
+    }
+
+    fun getAttachParams(): FrameLayout.LayoutParams {
+        return FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
     }
 }

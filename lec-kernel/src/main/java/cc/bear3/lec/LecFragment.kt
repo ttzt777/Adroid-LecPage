@@ -22,11 +22,6 @@ abstract class LecFragment : Fragment(), ILecPage {
     override var loadingView: View? = null
     override var errorView: View? = null
 
-    override val params = FrameLayout.LayoutParams(
-        ViewGroup.LayoutParams.MATCH_PARENT,
-        ViewGroup.LayoutParams.MATCH_PARENT
-    )
-
     override val state = MutableLiveData(LecState.Content)
 
     override fun onCreateView(
@@ -36,8 +31,7 @@ abstract class LecFragment : Fragment(), ILecPage {
     ): View? {
         root = inflater.inflate(R.layout.layout_lec, container, false) as FrameLayout
 
-        params.topMargin = 0
-        root.addView(onCreateContentView(), params)
+        root.addView(onCreateContentView(), getAttachParams())
 
         return root
     }
