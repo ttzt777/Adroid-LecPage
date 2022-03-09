@@ -43,7 +43,7 @@ interface ILecPage {
         val topMargin = getTopMargin(state.value!!)
 
         if (loadingView == null) {
-            loadingView = onCreateLoadingView()
+            loadingView = onCreateLoadingView().apply { isClickable = false }
 
             val params = getAttachParams().apply {
                 this.topMargin = topMargin
@@ -66,6 +66,7 @@ interface ILecPage {
         loadingView?.let {
             root.removeView(it)
         }
+        loadingView = null
     }
 
     fun showErrorLayout() {
@@ -74,7 +75,7 @@ interface ILecPage {
         val topMargin = getTopMargin(state.value!!)
 
         if (errorView == null) {
-            errorView = onCreateErrorView()
+            errorView = onCreateErrorView().apply { isClickable = false }
 
             val params = getAttachParams().apply {
                 this.topMargin = topMargin
@@ -97,6 +98,7 @@ interface ILecPage {
         errorView?.let {
             root.removeView(it)
         }
+        errorView = null
     }
 
     fun showContentLayout() {
