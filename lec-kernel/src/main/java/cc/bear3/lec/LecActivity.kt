@@ -2,7 +2,6 @@ package cc.bear3.lec
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
@@ -21,11 +20,6 @@ abstract class LecActivity : AppCompatActivity(), ILecPage {
     override var loadingView: View? = null
     override var errorView: View? = null
 
-    override val params = FrameLayout.LayoutParams(
-        ViewGroup.LayoutParams.MATCH_PARENT,
-        ViewGroup.LayoutParams.MATCH_PARENT
-    )
-
     override val state = MutableLiveData(LecState.Content)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +27,7 @@ abstract class LecActivity : AppCompatActivity(), ILecPage {
         setContentView(R.layout.layout_lec)
         root = findViewById(R.id.fl_layout_lec_root)
 
-        params.topMargin = 0
-        root.addView(onCreateContentView(), params)
+        root.addView(onCreateContentView(), getAttachParams())
 
         defaultObserverLecState()
     }
