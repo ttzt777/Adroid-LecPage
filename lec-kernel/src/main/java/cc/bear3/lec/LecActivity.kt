@@ -20,7 +20,7 @@ abstract class LecActivity : AppCompatActivity(), ILecPage {
     override var loadingView: View? = null
     override var errorView: View? = null
 
-    override val state = MutableLiveData(LecState.Content)
+    override val lecState = MutableLiveData(Lec.Content)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
