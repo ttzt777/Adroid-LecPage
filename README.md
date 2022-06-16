@@ -12,7 +12,7 @@
 - 对应module添加依赖
 ```groovy
     dependencies {
-        implementation 'com.github.ttzt777.Android-LecPage:lec-kernel:1.0.2'
+        implementation 'com.github.ttzt777.Android-LecPage:lec-kernel:1.0.3'
     }
 ```
 ### **lec-kernel**

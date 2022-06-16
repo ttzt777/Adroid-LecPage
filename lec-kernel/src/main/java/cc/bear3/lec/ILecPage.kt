@@ -12,7 +12,7 @@ import androidx.lifecycle.MutableLiveData
  * @since 2021-6-2
  */
 interface ILecPage {
-    val state: MutableLiveData<LecState>
+    val lecState: MutableLiveData<out Lec.State>
 
     var root: FrameLayout
 
@@ -22,28 +22,28 @@ interface ILecPage {
     fun getLifecycleOwner(): LifecycleOwner
 
     fun defaultObserverLecState() {
-        state.observe(getLifecycleOwner()) {
+        lecState.observe(getLifecycleOwner()) {
             when (it) {
-                LecState.Loading -> showLoadingLayout()
-                LecState.Error -> showErrorLayout()
-                LecState.Content -> showContentLayout()
+                is Lec.Loading -> showLoadingLayout()
+                is Lec.Error -> showErrorLayout()
+                is Lec.Content -> showContentLayout()
                 else -> {
                 }
             }
         }
     }
 
-    fun changeLecState(lecState: LecState) {
-        state.value = lecState
+    fun changeLecStatus(lecState: Lec.State) {
+        this.lecState.value = lecState
     }
 
     fun showLoadingLayout() {
         dismissErrorLayout()
 
-        val topMargin = getTopMargin(state.value!!)
+        val topMargin = getTopMargin(lecState.value!!)
 
         if (loadingView == null) {
-            loadingView = onCreateLoadingView().apply { isClickable = false }
+            loadingView = onCreateLoadingView().apply { isClickable = true }
 
             val params = getAttachParams().apply {
                 this.topMargin = topMargin
@@ -64,6 +64,7 @@ interface ILecPage {
 
     fun dismissLoadingLayout() {
         loadingView?.let {
+            onDestroyLoadingView(it)
             root.removeView(it)
         }
         loadingView = null
@@ -72,10 +73,10 @@ interface ILecPage {
     fun showErrorLayout() {
         dismissLoadingLayout()
 
-        val topMargin = getTopMargin(state.value!!)
+        val topMargin = getTopMargin(lecState.value!!)
 
         if (errorView == null) {
-            errorView = onCreateErrorView().apply { isClickable = false }
+            errorView = onCreateErrorView().apply { isClickable = true }
 
             val params = getAttachParams().apply {
                 this.topMargin = topMargin
@@ -96,6 +97,7 @@ interface ILecPage {
 
     fun dismissErrorLayout() {
         errorView?.let {
+            onDestroyErrorView(it)
             root.removeView(it)
         }
         errorView = null
@@ -120,7 +122,15 @@ interface ILecPage {
 
     }
 
-    fun getTopMargin(lecState: LecState): Int {
+    fun onDestroyLoadingView(loadingView: View){
+
+    }
+
+    fun onDestroyErrorView(errorView: View){
+
+    }
+
+    fun getTopMargin(lecState: Lec.State): Int {
         return 0
     }
 
